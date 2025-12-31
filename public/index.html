@@ -3,38 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>彩云天气查看器</title>
+    <title>全能天气助手</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>🌤️ 实时天气</h1>
+        <h1>🌤️ 全能天气助手</h1>
         
-        <div class="search-box">
-            <input type="text" id="lat" placeholder="纬度 (Lat)" value="39.9042">
-            <input type="text" id="lon" placeholder="经度 (Lon)" value="116.4074">
-            <button onclick="getWeather()">查询天气</button>
+        <div class="input-group">
+            <input type="text" id="city-input" placeholder="输入城市 (如: 上海)...">
+            <button onclick="searchCity()">🔍 搜索</button>
         </div>
+        <button class="location-btn" onclick="locateMe()">📍 定位当前位置</button>
+        
+        <input type="hidden" id="lat">
+        <input type="hidden" id="lon">
+
+        <div id="loading" class="hidden">加载中...</div>
 
         <div id="weather-result" class="weather-card hidden">
-            <h2 id="temperature">--°C</h2>
-            <p id="skycon">天气状况：--</p>
-            
-            <div class="details">
-                <div class="detail-item">
-                    <span>💧 湿度</span>
-                    <span id="humidity">--%</span>
-                </div>
-                <div class="detail-item">
-                    <span>🌬️ 风速</span>
-                    <span id="wind">-- km/h</span>
-                </div>
-                <div class="detail-item">
-                    <span>😷 空气质量</span>
-                    <span id="aqi">--</span>
+            <div class="current-weather">
+                <h2 id="city-name">未知城市</h2>
+                <h1 id="temperature">--°C</h1>
+                <p id="skycon">--</p>
+                <div class="details">
+                    <span>💧 湿度 <span id="humidity">--%</span></span>
+                    <span>🌬️ 风速 <span id="wind">--</span></span>
+                    <span>😷 空气 <span id="aqi">--</span></span>
                 </div>
             </div>
-            <p id="description" class="desc">正在获取数据...</p>
+
+            <hr>
+
+            <h3>📅 未来预报</h3>
+            <div id="forecast-list" class="forecast-container">
+                </div>
+            
+            <p id="description" class="desc"></p>
         </div>
     </div>
 

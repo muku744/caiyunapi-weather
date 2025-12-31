@@ -1,40 +1,50 @@
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #f0f2f5;
+    background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%); /* 增加背景渐变 */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
 }
 
 .container {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
     padding: 2rem;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     text-align: center;
-    width: 320px;
+    width: 350px;
+    max-width: 90%;
 }
 
-h1 { color: #333; margin-bottom: 1.5rem; font-size: 1.5rem; }
+.input-group { display: flex; gap: 8px; margin-bottom: 10px; }
+#city-input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; outline: none; }
 
-.search-box { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 20px; }
-input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
 button {
-    width: 100%; padding: 10px; background-color: #007bff;
-    color: white; border: none; border-radius: 8px; cursor: pointer;
-    font-weight: bold; margin-top: 5px;
+    padding: 10px 15px; background-color: #007bff; color: white;
+    border: none; border-radius: 8px; cursor: pointer; transition: 0.2s;
 }
 button:hover { background-color: #0056b3; }
 
-.weather-card { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+.location-btn {
+    width: 100%; background-color: #28a745; margin-bottom: 20px;
+}
+.location-btn:hover { background-color: #218838; }
+
 .hidden { display: none; }
+#loading { color: #666; margin: 20px 0; }
 
-#temperature { font-size: 3rem; margin: 10px 0; color: #2c3e50; }
-#skycon { color: #7f8c8d; font-size: 1.1rem; margin-bottom: 20px; }
+#temperature { font-size: 3.5rem; margin: 10px 0; color: #333; }
+#city-name { margin: 0; color: #555; font-size: 1.2rem; }
+.details { display: flex; justify-content: space-between; font-size: 0.9rem; color: #666; margin-top: 15px; }
 
-.details { display: flex; justify-content: space-between; font-size: 0.9rem; color: #555; }
-.detail-item { display: flex; flex-direction: column; gap: 5px; }
-
-.desc { margin-top: 20px; font-size: 0.85rem; color: #888; }
+/* 预报列表样式 */
+.forecast-container { margin-top: 15px; text-align: left; }
+.forecast-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0; border-bottom: 1px solid #eee; font-size: 0.9rem;
+}
+.forecast-item:last-child { border-bottom: none; }
+.forecast-date { color: #888; font-size: 0.8rem; }
+.forecast-temp { font-weight: bold; color: #333; }
