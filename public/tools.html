@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>坐标反查工具</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 给工具页加一点特有的样式 */
+        .result-box {
+            margin-top: 20px;
+            text-align: left;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .label { font-weight: bold; color: #555; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← 返回天气首页</a>
+
+        <h1>🗺️ 坐标查地址</h1>
+        
+        <div class="input-group">
+            <input type="text" id="q-lat" placeholder="纬度 (Lat) 例如: 39.90" >
+            <input type="text" id="q-lon" placeholder="经度 (Lon) 例如: 116.40">
+        </div>
+        
+        <button onclick="lookupAddress()" style="margin-top: 10px; width: 100%;">🔍 查询地址</button>
+
+        <div id="result-area" class="result-box hidden">
+            <p><span class="label">显示名称：</span><br><span id="display-name">--</span></p>
+            <p><span class="label">详细地址：</span></p>
+            <ul id="address-details" style="padding-left: 20px; margin: 5px 0;"></ul>
+        </div>
+    </div>
+
+    <script>
+        async function lookupAddress() {
+            const lat = document.getElementById('q-lat').value;
+            const lon = document.getElementById('q-lon').value;
+            const resultArea = document.getElementById('result-area');
+
+            if (!lat || !lon) return alert("请输入完整的经纬度");
+
+            resultArea.classList.remove('hidden');
+            document.getElementById('display-name').innerText = "查询中...";
+            document.getElementById('address-details').innerHTML = "";
+
+            try {
+                const res = await fetch(`/api/reverse-geocode?lat=${lat}&lon=${lon}`);
+                const data = await res.json();
+
+                if (data.error) {
+                    document.getElementById('display-name').innerText = "查询失败或坐标无效";
+                } else {
+                    // 显示完整名称
+                    document.getElementById('display-name').innerText = data.display_name;
+                    
+                    // 解析详细地址对象
+                    const details = data.address;
+                    const ul = document.getElementById('address-details');
+                    
+                    // 遍历地址详情并显示
+                    for (const key in details) {
+                        const li = document.createElement('li');
+                        li.innerText = `${key}: ${details[key]}`;
+                        ul.appendChild(li);
+                    }
+                }
+            } catch (err) {
+                alert("网络请求出错");
+            }
+        }
+    </script>
+</body>
+</html>

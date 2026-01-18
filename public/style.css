@@ -18,6 +18,15 @@ body {
     max-width: 90%;
 }
 
+.search-box { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 20px; }
+input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+button {
+    width: 100%; padding: 10px; background-color: #007bff;
+    color: white; border: none; border-radius: 8px; cursor: pointer;
+    font-weight: bold; margin-top: 5px;
+}
+button:hover { background-color: #0056b3; }
+
 .input-group { display: flex; gap: 8px; margin-bottom: 10px; }
 #city-input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; outline: none; }
 
@@ -28,9 +37,31 @@ button {
 button:hover { background-color: #0056b3; }
 
 .location-btn {
-    width: 100%; background-color: #28a745; margin-bottom: 20px;
+    width: 100%; background-color: #28a745; margin-bottom: 15px;
 }
 .location-btn:hover { background-color: #218838; }
+
+.coordinates-display {
+    display: flex; 
+    gap: 20px; 
+    justify-content: center; 
+    margin-bottom: 20px; 
+    font-size: 0.95rem; 
+    color: #555;
+    padding: 10px; 
+    background-color: #f8f9fa; 
+    border-radius: 8px;
+}
+
+.coordinates-display span {
+    font-weight: 500;
+}
+
+.coordinates-display span span {
+    color: #007bff; 
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+}
 
 .hidden { display: none; }
 #loading { color: #666; margin: 20px 0; }
@@ -48,3 +79,59 @@ button:hover { background-color: #0056b3; }
 .forecast-item:last-child { border-bottom: none; }
 .forecast-date { color: #888; font-size: 0.8rem; }
 .forecast-temp { font-weight: bold; color: #333; }
+
+/* 新增图标样式 */
+.weather-icon-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+}
+
+#weather-icon {
+    width: 100px;  /* 图标大小 */
+    height: 100px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); /* 给图标加点投影，更立体 */
+}
+
+/* 调整原来的文字样式 */
+#skycon {
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 5px;
+}
+
+
+/* --- 移动端适配代码 --- */
+
+/* 当屏幕宽度小于 600px 时（即手机竖屏状态）应用这些样式 */
+@media (max-width: 600px) {
+    body {
+        /* 手机上不需要居中对齐，改为顶部对齐 */
+        align-items: flex-start;
+        padding-top: 20px;
+        background: #f5f7fa; /* 手机上用纯色背景可能更干净，或者保持渐变 */
+    }
+
+    .container {
+        width: 90%; /* 宽度占屏幕的 90% */
+        padding: 1.5rem;
+        box-shadow: none; /* 手机上可以去掉大阴影，看起来更平滑 */
+        border-radius: 12px;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    #temperature {
+        font-size: 3rem; /* 温度字体稍微调小一点防止换行 */
+    }
+
+    /* 让详情栏（湿度、风速）在极小屏幕上换行显示 */
+    .details {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+}

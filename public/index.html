@@ -9,12 +9,30 @@
 <body>
     <div class="container">
         <h1>🌤️ 全能天气助手</h1>
+
+        <div style="margin-bottom: 15px; text-align: right;">
+            <a href="/tools" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">
+                🛠️ 坐标反查工具 &gt;
+            </a>
+        </div>
+
         
         <div class="input-group">
             <input type="text" id="city-input" placeholder="输入城市 (如: 上海)...">
             <button onclick="searchCity()">🔍 搜索</button>
         </div>
+        <!-- 依据经纬度查询  -->
+        <div class="search-box">
+            <input type="text" id="lat" placeholder="纬度 (Lat)" value="39.9042">
+            <input type="text" id="lon" placeholder="经度 (Lon)" value="116.4074">
+            <button onclick="getWeatherbylatitude()">查询天气</button>
+        </div>
         <button class="location-btn" onclick="locateMe()">📍 定位当前位置</button>
+        
+        <div class="coordinates-display">
+            <span>纬度：<span id="display-lat">--</span></span>
+            <span>经度：<span id="display-lon">--</span></span>
+        </div>
         
         <input type="hidden" id="lat">
         <input type="hidden" id="lon">
@@ -25,7 +43,12 @@
             <div class="current-weather">
                 <h2 id="city-name">未知城市</h2>
                 <h1 id="temperature">--°C</h1>
-                <p id="skycon">--</p>
+               
+                <div class="weather-icon-box">
+                    <img id="weather-icon" src="" alt="天气图标" class="hidden">
+                    <p id="skycon">--</p>
+                </div>
+
                 <div class="details">
                     <span>💧 湿度 <span id="humidity">--%</span></span>
                     <span>🌬️ 风速 <span id="wind">--</span></span>

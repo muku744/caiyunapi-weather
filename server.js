@@ -52,6 +52,33 @@ app.get('/api/search', async (req, res) => {
     }
 });
 
+// --- 新增功能：工具页路由 ---
+
+// 1. 当用户访问 /tools 时，发送 tools.html 文件
+app.get('/tools', (req, res) => {
+    res.sendFile(__dirname + '/public/tools.html');
+});
+
+// 3. 逆地理编码 API (经纬度 -> 地名)
+app.get('/api/reverse-geocode', async (req, res) => {
+    const { lat, lon } = req.query;
+    if (!lat || !lon) return res.status(400).json({ error: '需要提供经纬度' });
+
+    try {
+        // Nominatim 逆地理编码接口
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`;
+        
+        const response = await axios.get(url, {
+            headers: { 'User-Agent': 'WeatherApp-Demo/1.0' }
+        });
+        
+        res.json(response.data);
+    } catch (error) {
+        console.error('逆地理编码出错:', error.message);
+        res.status(500).json({ error: '查询失败' });
+    }
+});
+
 app.listen(port, () => {
     console.log(`服务器升级完毕: http://localhost:${port}`);
 });
